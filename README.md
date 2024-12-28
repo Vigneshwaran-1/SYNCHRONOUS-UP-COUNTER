@@ -89,6 +89,9 @@ Developed by: RegisterNumber:
 
 
 **TRUTH TABLE**
+
+
+
 ![count-sequence-synchronous-counter](https://github.com/user-attachments/assets/d914f0c5-9832-4af3-b1d5-89d331c1a106)
 
 
