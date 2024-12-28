@@ -1,5 +1,9 @@
 ### SYNCHRONOUS-UP-COUNTER
 
+NAME: P.VIGNESHWARAN
+
+REF NO: 24900068
+
 **AIM:**
 
 To implement 4 bit synchronous up counter and validate functionality.
@@ -30,17 +34,65 @@ However, the remaining flip-flops should be made ready to toggle only when all l
 
 /* write all the steps invloved */
 
+Design: Implemented a 4-bit synchronous up counter that increments on every clock cycle and resets on the reset signal.
+
+Testbench: Applied reset and observed the counter value.
+
+Validation: Verified the functionality using a functional table to ensure correct counting behavior.
+
+
+
+
+
 **PROGRAM**
 
 /* Program for flipflops and verify its truth table in quartus using Verilog programming. 
+module ripple (
+    input clk,     // Clock input
+    input reset,   // Reset input (active high)
+    output [3:0] q // 4-bit output
+);
+    // Internal signals for flip-flops
+    reg [3:0] q_int;
+    // Assign internal register to output
+    assign q = q_int;
+
+   always @(posedge clk or posedge reset) begin
+        if (reset) 
+            q_int[0] <= 1'b0; // Reset the first bit to 0
+        else 
+            q_int[0] <= ~q_int[0]; // Toggle the first bit on clock edge
+    end
+    // Generate the other flip-flops based on the output of the previous one
+    genvar i;
+    generate
+        for (i = 1; i < 4; i = i + 1) begin : ripple
+            always @(posedge q_int[i-1] or posedge reset) begin
+                if (reset) 
+                    q_int[i] <= 1'b0; // Reset the bit to 0
+                else 
+                    q_int[i] <= ~q_int[i]; // Toggle the bit on clock edge of previous stage
+            end
+        end
+    endgenerate
+endmodule
 
 Developed by: RegisterNumber:
 */
 
 **RTL LOGIC UP COUNTER**
+![ex-11 1](https://github.com/user-attachments/assets/c987d6b0-dfcf-4a53-a280-a9ed8bd4378c)
+
 
 **TIMING DIAGRAM FOR IP COUNTER**
+![ex-11 2](https://github.com/user-attachments/assets/50eddd5a-dfb0-4c42-a062-0df47fe08ab9)
+
 
 **TRUTH TABLE**
+![count-sequence-synchronous-counter](https://github.com/user-attachments/assets/d914f0c5-9832-4af3-b1d5-89d331c1a106)
+
+
 
 **RESULTS**
+ Implementing 4 bit synchronous up counter and validate functionality is done successfully.
+
